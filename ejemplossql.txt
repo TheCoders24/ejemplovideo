@@ -1,0 +1,50 @@
+-- Crear la base de datos
+CREATE DATABASE IF NOT EXISTS sistema_ventas;
+USE sistema_ventas;
+
+-- Tabla de proveedores
+CREATE TABLE proveedores (
+    id_proveedor INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    telefono VARCHAR(20),
+    direccion VARCHAR(200),
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabla de categorías
+CREATE TABLE categorias (
+    id_categoria INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT
+);
+
+-- Tabla de productos
+CREATE TABLE productos (
+    id_producto INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    precio DECIMAL(10,2) NOT NULL,
+    stock INT DEFAULT 0,
+    id_categoria INT,
+    id_proveedor INT,
+    FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria),
+    FOREIGN KEY (id_proveedor) REFERENCES proveedores(id_proveedor)
+);
+
+-- Tabla de clientes
+CREATE TABLE clientes (
+    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    correo VARCHAR(100) UNIQUE,
+    telefono VARCHAR(20),
+    direccion VARCHAR(200),
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabla de ventas
+CREATE TABLE ventas (
+    id_venta INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    total DECIMAL(10,2),
+    FOREIGN KEY (id_cli_
